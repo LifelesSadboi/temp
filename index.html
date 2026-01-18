@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BTS Manila VIP Ticket Helper</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin: 0;
+  font-family: system-ui, Arial, sans-serif;
+  background: #111;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.container {
+  max-width: 420px;
+  background: #1c1c1c;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 0 20px rgba(160,90,255,0.4);
+}
+h1 {
+  text-align: center;
+  color: #b68cff;
+}
+.countdown {
+  font-size: 1.6rem;
+  text-align: center;
+  margin: 16px 0;
+}
+a, button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+}
+a {
+  background: #b68cff;
+  color: #000;
+  text-decoration: none;
+}
+button {
+  background: #333;
+  color: #fff;
+  cursor: pointer;
+}
+ul {
+  margin-top: 10px;
+}
+li {
+  margin-bottom: 6px;
+}
+.note {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>💜 BTS Manila VIP Helper</h1>
+
+  <p style="text-align:center;">
+    📍 Manila<br>
+    📅 March 12 & 14, 2027
+  </p>
+
+  <div class="countdown" id="timer">Loading…</div>
+
+  <button onclick="enableAlerts()">🔔 Enable Sale Reminder</button>
+
+  <a href="https://www.smtickets.com" target="_blank">
+    🎟 Go to Official Ticket Site
+  </a>
+
+  <h3>VIP Prep Checklist</h3>
+  <ul>
+    <li>Logged in 30 mins early</li>
+    <li>Payment info saved</li>
+    <li>Fast internet (LAN if possible)</li>
+    <li>1 device + 1 backup only</li>
+    <li>Avoid refreshing excessively</li>
+  </ul>
+
+  <p class="note">
+    This site does NOT bypass queues or automate purchases.
+  </p>
+</div>
+
+<script>
+// UPDATE WHEN OFFICIAL SALE DATE IS ANNOUNCED
+const saleDate = new Date("2027-01-15T10:00:00");
+
+function updateTimer() {
+  const now = new Date();
+  const diff = saleDate - now;
+  if (diff <= 0) {
+    document.getElementById("timer").innerText = "🎟 Tickets are LIVE!";
+    return;
+  }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor(diff / 3600000) % 24;
+  const m = Math.floor(diff / 60000) % 60;
+  const s = Math.floor(diff / 1000) % 60;
+  document.getElementById("timer").innerText =
+    ${d}d ${h}h ${m}m ${s}s;
+}
+setInterval(updateTimer, 1000);
+updateTimer();
+
+function enableAlerts() {
+  if (!("Notification" in window)) {
+    alert("Notifications not supported.");
+    return;
+  }
+  Notification.requestPermission().then(p => {
+    if (p === "granted") {
+      new Notification("💜 BTS Ticket Reminder Enabled", {
+        body: "Be ready before ticket selling starts!"
+      });
+    }
+  });
+}
+</script>
+
+</body>
+</html>
